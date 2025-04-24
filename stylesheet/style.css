@@ -1,4 +1,4 @@
-/* ====== 页面基础 ====== */
+/* ===== 页面基础 ===== */
 body {
   margin: 0;
   height: 300vh;
@@ -7,7 +7,7 @@ body {
   transition: background-color 0.2s ease;
 }
 
-/* ====== 标题：CREATIVEDAVID ====== */
+/* ===== 顶部 CREATIVEDAVID ===== */
 #title {
   position: fixed;
   left: 50%;
@@ -21,57 +21,49 @@ body {
   transition: none;
 }
 
-/* ====== intro 模块：初始状态隐藏，贴在 title 底部 ====== */
+/* ===== intro 初始状态 ===== */
 .intro {
   width: calc(100% - 20px);
   margin: 0 10px;
+  margin-top: 160vh; /* 初始放在页面较下方 */
   opacity: 0;
-  transition: opacity 1s ease;
-  position: absolute;
-  top: 160vh; /* 初始远离可视区，等滚动后变为 fixed */
+  transition: opacity 1s ease, margin-top 0.5s ease;
+  position: static; /* ✅ 保持在文档流中 */
 }
 
-/* ====== intro 显示后，固定在 title 底部 5px ====== */
+/* ===== intro 显示后，贴在视口底部 5px 处 ===== */
 .intro.visible {
   opacity: 1;
- 
+  margin-top: calc(100vh + 5px); /* ✅ 相对视口高度加间距 */
 }
 
-/* ====== 黑色高块 ====== */
+/* ===== 黑色块 ===== */
 .line {
   width: 100%;
   height: 30px;
   background-color: black;
 }
 
-/* ====== 细横线 ====== */
+/* ===== 水平细线 ===== */
 .hr {
   width: 100%;
-  height: 0.75px;
+  height: 0.25px;
   background-color: black;
   margin-top: 10px;
 }
 
-/* ====== 段落文字 ====== */
+/* ===== 段落文字 ===== */
 .para {
-  width: 60%;
+  width: 25%;
   margin-top: 30px;
   text-align: left;
   margin-left: 0;
+  font-size: 18px;
   line-height: 1.6;
   color: #333;
 }
 
-.para h1{
-	font-size: 200px;
-}
-
-.para p{
-	width: 45%;
-	font-size: 80px;
-}
-
-/* ====== 黑色方块动画浮现 ====== */
+/* ===== 方块浮现动画 ===== */
 .block {
   width: 100px;
   height: 100px;
@@ -84,4 +76,5 @@ body {
 .block.visible {
   opacity: 1;
 }
+
 
