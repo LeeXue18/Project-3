@@ -1,4 +1,9 @@
 /* ===== 页面基础 ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+
 body {
   margin: 0;
   height: 300vh;
@@ -47,9 +52,18 @@ body {
 /* ===== 水平细线 ===== */
 .hr {
   width: 100%;
-  height: 0.75px;
+  height: 2px;
   background-color: black;
   margin-top: 10px;
+}
+
+.hr2 {
+  width: 40%;
+  align-content: left;
+  height: 2px;
+  background-color: black;
+  margin-top: 50px;
+ 
 }
 
 /* ===== 段落文字 ===== */
@@ -89,20 +103,6 @@ body {
   margin: 0;
 }
 
-
-/* ===== 方块浮现动画 ===== */
-.block {
-  width: 100px;
-  height: 100px;
-  background-color: black;
-  margin: 80vh auto 0;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.block.visible {
-  opacity: 1;
-}
 
 /* 内容包装器 */
 .content-wrapper {
@@ -207,7 +207,7 @@ body {
 }
 
 .top-right h3 {
-  padding: 100px 120px 0px 10px;
+  padding: 30% 25% 0% 1%;
   font-size: 64px;
   line-height: 1.2;
   margin: 0;
@@ -219,4 +219,162 @@ body {
   border: none;
 }
 
+.v1, .v2 {
+	height: 100vh;
+    width: calc(100% - 20px);
+    margin: 0 10px;
+  
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.v1.visible, .v2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* 案例 */
+
+.main {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.words {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+}
+
+.img{
+	margin-left: auto;
+	width: 30%;
+	height: 100vh;
+	overflow: hidden;       /*  确保图片超出时裁切 */
+    display: flex;
+    align-items: center;     /*  图片垂直居中 */
+    justify-content: center;
+}
+
+.img img {
+    
+    max-height: 100%;
+    object-fit: cover;       /* 填满区域，可能裁切（你也可以改成 contain） */
+    display: block;
+}
+
+.name{
+	margin: 0;
+	width: 60%;
+	font-weight: bold;
+	font-size: 165px;
+	line-height:145px ;
+	display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.name p {
+    margin: 0; /* 去除所有外边距 */
+}
+
+
+.explain {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.leftw {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	/*justify-content: flex-end;*/
+}
+
+.leftw a{
+	font-size: 24px;
+	margin-top: 10px;
+	text-decoration: none;
+	color: #333;
+}
+
+
+.leftw p{
+	width: 85%;
+	margin-top: 20%;
+	font-size: 36px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.rightw{
+	margin-left: auto;
+	width: 40%;
+    display: flex;
+    flex-direction: row;
+}
+/*
+.rightw a{
+	font-size: 24px;
+	margin-top: 10px;
+	text-decoration: none;
+	color: #333;
+	opacity: 0;
+}
+*/
+.rightw p{;
+	width: 30%;
+	padding: 0;
+	font-size: 24px;
+	margin-top: 10px;
+	text-decoration: none;
+	color: #333;
+
+}
+.rightw .jump{
+	display: flex;
+	flex-direction: column;
+
+	width: 50%;
+	padding: 0;
+	font-size: 24px;
+	font-weight: 100;
+	margin-top: 10px;
+	text-decoration: none;
+	color: #333;
+
+}
+
+.jump a{
+	text-decoration: none;
+	color: #333;
+}
+
+.jump a {
+  display: block;
+}
+.jump a{
+  font-variation-settings: 'wght' 100;
+  transition: font-variation-settings 0.3s ease;
+  
+  color: #333;
+  text-decoration: none;
+  display: block;
+
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.jump a:hover{
+  font-variation-settings: 'wght' 300;
+  
+  color: #FF6500;
+  transform: scale(1.05);
+  transform-origin: left center;
+  cursor: pointer;
+}
 
