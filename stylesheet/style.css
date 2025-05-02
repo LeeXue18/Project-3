@@ -137,7 +137,7 @@ body {
 
 .side-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
 
@@ -231,7 +231,7 @@ body {
 
 .feature-image {
   width: auto;
-  height: auto;
+  height: 1000px;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
