@@ -1,5 +1,5 @@
 // ========== 滚动控制动画 ==========
-window.addEventListener('scroll', () => {
+function handleScroll() {
   const scrollY = window.scrollY;
   const title = document.getElementById('title');
   const intro = document.querySelector('.intro');
@@ -50,7 +50,10 @@ window.addEventListener('scroll', () => {
       el.classList.add('visible');
     }
   });
-});
+}
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('DOMContentLoaded', handleScroll);
 
 // ========== 自定义鼠标逻辑，仅限 .v3 .img 区域 ==========
 const customCursor = document.createElement('div');
@@ -113,15 +116,13 @@ v3Image.addEventListener('mouseleave', () => {
   cursorImg.style.height = `300px`;
 });
 
-
-//v2聚光灯
+// ========== v2聚光灯效果 ==========
 const v2 = document.querySelector('.v2');
 const mask = document.querySelector('.mask-overlay');
 
 let isMaskActive = true; // 初始状态：遮罩启用
 
 // 自动把 .name 和 .leftw 中的文字每个字母包一层 span
-// 只作用于 .v2 中的 .name p 和 .leftw p
 function wrapLettersInV2() {
   const v2 = document.querySelector('.v2');
   if (!v2) return;
@@ -141,10 +142,8 @@ function wrapLettersInV2() {
   });
 }
 
-
 // 初始化
 wrapLettersInV2();
-
 
 // 鼠标移动处理：更新遮罩位置和字母阴影
 v2.addEventListener('mousemove', (e) => {
@@ -199,7 +198,7 @@ v2.addEventListener('click', () => {
   }
 });
 
-//intro文字打散
+// ========== intro文字打散效果 ==========
 const bottomContent = document.querySelector('.bottom-content');
 const paragraphs = bottomContent.querySelectorAll('.p1, .p2');
 let isScattered = false;
@@ -227,15 +226,16 @@ function wrapParagraphLetters() {
   });
 }
 
-
+// 初始化文字包装
 wrapParagraphLetters();
 
+// 点击事件：文字打散/恢复
 bottomContent.addEventListener('click', () => {
   const letters = bottomContent.querySelectorAll('.scatter-letter');
   
   if (!isScattered) {
     letters.forEach(letter => {
-      const x = (Math.random() - 0.5) * 200; // -100 to 100 px
+      const x = (Math.random() - 0.5) * 200;
       const y = (Math.random() - 0.5) * 200;
       const r = (Math.random() - 0.5) * 360;
       letter.classList.add('floating');
@@ -250,20 +250,19 @@ bottomContent.addEventListener('click', () => {
   }
 });
 
-//v1拖尾
+// ========== v1拖尾效果 ==========
 document.addEventListener('DOMContentLoaded', function () {
   const v1Element = document.querySelector('.v1');
   const trailElements = [];
   
-
   const images = [
     'images/111.png',
     'images/222.png',
     'images/333.png',
   ];
 
-  let lastTrailTime = 0; // 记录上一次生成时间
-  const trailDelay = 50; // 拖尾生成间隔：100ms
+  let lastTrailTime = 0;
+  const trailDelay = 50;
 
   v1Element.addEventListener('mousemove', function (e) {
     const now = Date.now();
@@ -278,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
     trail.className = 'trail';
     trail.src = images[Math.floor(Math.random() * images.length)];
 
-    const size = (Math.random() * 30 + 20) * 4; // 拖尾大小：40–100px
+    const size = (Math.random() * 30 + 20) * 4;
     const rotation = Math.random() * 360;
 
     trail.style.left = `${x}px`;
@@ -290,20 +289,21 @@ document.addEventListener('DOMContentLoaded', function () {
     v1Element.appendChild(trail);
     trailElements.push(trail);
 
-    // 保留 5 秒后再慢慢淡出（1 秒）
     setTimeout(() => {
       trail.style.opacity = '0';
-    }, 500); // 5秒后淡出
+    }, 500);
 
-    // 6 秒后彻底删除
     setTimeout(() => {
       trail.remove();
+      const index = trailElements.indexOf(trail);
+      if (index > -1) {
+        trailElements.splice(index, 1);
+      }
     }, 1000);
   });
 });
 
-//v1文字掉落
-// 包裹每个单词
+// ========== v1文字掉落效果 ==========
 function wrapWordsInV1Leftw() {
   const leftwP = document.querySelectorAll('.v1 .leftw p');
   leftwP.forEach(p => {
@@ -313,11 +313,12 @@ function wrapWordsInV1Leftw() {
     p.innerHTML = html;
   });
 }
+
+// 初始化文字包装
 wrapWordsInV1Leftw();
 
-// 控制点击后文字掉落 / 恢复
+// 控制点击后文字掉落/恢复
 let v1Dropped = false;
-
 const v1Leftw = document.querySelector('.v1 .leftw');
 v1Leftw.addEventListener('click', () => {
   const words = v1Leftw.querySelectorAll('.drop-word');
@@ -325,7 +326,6 @@ v1Leftw.addEventListener('click', () => {
 
   words.forEach((word, index) => {
     if (v1Dropped) {
-      // 可选延迟：像“雨滴”一样掉落
       word.style.transitionDelay = `${index * 20}ms`;
       word.classList.add('falling');
     } else {

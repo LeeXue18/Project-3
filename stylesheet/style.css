@@ -1,4 +1,4 @@
-/* ===== 页面基础 ===== */
+//* ===== 页面基础 ===== */
 html {
   scroll-behavior: smooth;
 }
@@ -198,10 +198,10 @@ body {
   margin-top: 30px;
 }
 
-/*⚠️intro文字打散*/
-.scatter-word {
+
+ .scatter-word {
   white-space: nowrap; /* ✅ 保证单词不被拆行 */
-  display: inline-block;
+   display: inline-block;
 }
 
 .scatter-letter {
@@ -217,7 +217,7 @@ body {
 .scatter-space {
   display: inline-block;
   width: 0.3em;
-}
+} 
 
 
 
@@ -243,27 +243,26 @@ body {
   border: none;
 }
 
-.v1, .v2 , .v3,{
-	height: 100vh;
-    width: calc(100% - 20px);
-    margin: 0 10px;
-  
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+.v1, .v2, .v3 {
+  height: 100vh;
+  width: calc(100% - 20px);
+  margin: 0 10px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .v1.visible, .v2.visible ,.v3.visible,.v4.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.v2{
+/* .v2{
 	overflow: hidden;
 }
 
 .v1{
 	position: relative;
-}
+} */
 
 
 
@@ -612,7 +611,7 @@ a:hover::before, a:hover::after{
   transition: text-shadow 0.05s linear;
 }
 
-/*⚠️v1拖尾+掉落*/
+
 .trail {
   position: absolute;
   pointer-events: none;
@@ -634,3 +633,18 @@ a:hover::before, a:hover::after{
   opacity: 0;
 }
 
+.v1 {
+  position: relative;
+
+}
+
+
+.trail {
+  position: absolute;
+  pointer-events: none;
+
+  filter: brightness(1.2) saturate(1.4);
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 1s ease;
+  opacity: 1;
+}
