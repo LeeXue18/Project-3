@@ -16,7 +16,7 @@ window.addEventListener('scroll', () => {
   const scale = 1 + 1.5 * progress;
   const translateY = -50 + 50 * progress;
   const textValue = Math.round(255 - 255 * progress);
-  const bgValue = Math.round(51 + (255 - 51) * progress);
+  const bgValue = Math.round(0 + (255 - 0) * progress);
   const textColor = `rgb(${textValue}, ${textValue}, ${textValue})`;
   const bgColor = `rgb(${bgValue}, ${bgValue}, ${bgValue})`;
 
