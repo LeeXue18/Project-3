@@ -118,8 +118,35 @@ v3Image.addEventListener('mouseleave', () => {
 const v2 = document.querySelector('.v2');
 const mask = document.querySelector('.mask-overlay');
 
-let isMaskActive = true; // 初始状态：遮罩开启
+let isMaskActive = true; // 初始状态：遮罩启用
 
+// 自动把 .name 和 .leftw 中的文字每个字母包一层 span
+// 只作用于 .v2 中的 .name p 和 .leftw p
+function wrapLettersInV2() {
+  const v2 = document.querySelector('.v2');
+  if (!v2) return;
+
+  const nameP = v2.querySelectorAll('.name p');
+  const leftwP = v2.querySelectorAll('.leftw p');
+
+  [...nameP, ...leftwP].forEach(el => {
+    const html = el.textContent.split('').map(char => {
+      if (char === ' ') {
+        return `<span class="shadow-letter">&nbsp;</span>`;
+      } else {
+        return `<span class="shadow-letter">${char}</span>`;
+      }
+    }).join('');
+    el.innerHTML = html;
+  });
+}
+
+
+// 初始化
+wrapLettersInV2();
+
+
+// 鼠标移动处理：更新遮罩位置和字母阴影
 v2.addEventListener('mousemove', (e) => {
   if (!isMaskActive) return;
 
@@ -127,29 +154,44 @@ v2.addEventListener('mousemove', (e) => {
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
+  // 更新遮罩位置
   const maskStyle = `radial-gradient(circle 300px at ${x}px ${y}px, transparent 0%, black 100%)`;
   mask.style.webkitMaskImage = maskStyle;
   mask.style.maskImage = maskStyle;
+
+  // 计算阴影方向（鼠标反方向）
+  const shadowLetters = v2.querySelectorAll('.shadow-letter');
+  shadowLetters.forEach(letter => {
+    const letterRect = letter.getBoundingClientRect();
+    const letterX = letterRect.left + letterRect.width / 2 - rect.left;
+    const letterY = letterRect.top + letterRect.height / 2 - rect.top;
+
+    const offsetX = (letterX - x) / 10;
+    const offsetY = (letterY - y) / 10;
+
+    letter.style.textShadow = `${offsetX}px ${offsetY}px 2px rgba(0, 0, 0, 0.6)`;
+  });
 });
 
+// 鼠标移出 .v2 时把洞藏起来
 v2.addEventListener('mouseleave', () => {
   if (!isMaskActive) return;
-
   const maskStyle = `radial-gradient(circle 300px at -999px -999px, transparent 0%, black 100%)`;
   mask.style.webkitMaskImage = maskStyle;
   mask.style.maskImage = maskStyle;
 });
 
+// 点击 .v2 开关遮罩
 v2.addEventListener('click', () => {
   isMaskActive = !isMaskActive;
 
   if (!isMaskActive) {
-    // 关闭遮罩 + 让背景变透明
+    // 取消遮罩效果，透明背景
     mask.style.webkitMaskImage = 'none';
     mask.style.maskImage = 'none';
     mask.style.backgroundColor = 'transparent';
   } else {
-    // 恢复遮罩 + 黑色背景
+    // 恢复遮罩，黑背景 + 洞藏起来
     const maskStyle = `radial-gradient(circle 300px at -999px -999px, transparent 0%, black 100%)`;
     mask.style.webkitMaskImage = maskStyle;
     mask.style.maskImage = maskStyle;
@@ -157,5 +199,138 @@ v2.addEventListener('click', () => {
   }
 });
 
+//intro文字打散
+const bottomContent = document.querySelector('.bottom-content');
+const paragraphs = bottomContent.querySelectorAll('.p1, .p2');
+let isScattered = false;
+
+// 初始包装字母
+function wrapParagraphLetters() {
+  paragraphs.forEach(p => {
+    const words = p.textContent.trim().split(' ');
+
+    const html = words.map((word, i) => {
+      const letterSpans = word.split('').map(char =>
+        `<span class="scatter-letter">${char}</span>`
+      ).join('');
+
+      if (i === 0) {
+        // 第一个单词前不加空格
+        return `<span class="scatter-word">${letterSpans}</span>`;
+      } else {
+        // 其他单词前加可控空格
+        return `<span class="scatter-space">&nbsp;</span><span class="scatter-word">${letterSpans}</span>`;
+      }
+    }).join('');
+
+    p.innerHTML = html;
+  });
+}
 
 
+wrapParagraphLetters();
+
+bottomContent.addEventListener('click', () => {
+  const letters = bottomContent.querySelectorAll('.scatter-letter');
+  
+  if (!isScattered) {
+    letters.forEach(letter => {
+      const x = (Math.random() - 0.5) * 200; // -100 to 100 px
+      const y = (Math.random() - 0.5) * 200;
+      const r = (Math.random() - 0.5) * 360;
+      letter.classList.add('floating');
+      letter.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+    });
+    isScattered = true;
+  } else {
+    letters.forEach(letter => {
+      letter.style.transform = `translate(0, 0) rotate(0deg)`;
+    });
+    isScattered = false;
+  }
+});
+
+//v1拖尾
+document.addEventListener('DOMContentLoaded', function () {
+  const v1Element = document.querySelector('.v1');
+  const trailElements = [];
+  
+
+  const images = [
+    'images/111.png',
+    'images/222.png',
+    'images/333.png',
+  ];
+
+  let lastTrailTime = 0; // 记录上一次生成时间
+  const trailDelay = 50; // 拖尾生成间隔：100ms
+
+  v1Element.addEventListener('mousemove', function (e) {
+    const now = Date.now();
+    if (now - lastTrailTime < trailDelay) return;
+    lastTrailTime = now;
+
+    const rect = v1Element.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const trail = document.createElement('img');
+    trail.className = 'trail';
+    trail.src = images[Math.floor(Math.random() * images.length)];
+
+    const size = (Math.random() * 30 + 20) * 4; // 拖尾大小：40–100px
+    const rotation = Math.random() * 360;
+
+    trail.style.left = `${x}px`;
+    trail.style.top = `${y}px`;
+    trail.style.width = `${size}px`;
+    trail.style.height = `${size}px`;
+    trail.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(1)`;
+
+    v1Element.appendChild(trail);
+    trailElements.push(trail);
+
+    // 保留 5 秒后再慢慢淡出（1 秒）
+    setTimeout(() => {
+      trail.style.opacity = '0';
+    }, 500); // 5秒后淡出
+
+    // 6 秒后彻底删除
+    setTimeout(() => {
+      trail.remove();
+    }, 1000);
+  });
+});
+
+//v1文字掉落
+// 包裹每个单词
+function wrapWordsInV1Leftw() {
+  const leftwP = document.querySelectorAll('.v1 .leftw p');
+  leftwP.forEach(p => {
+    const html = p.textContent.trim().split(' ').map(word => {
+      return `<span class="drop-word">${word}</span>`;
+    }).join(' ');
+    p.innerHTML = html;
+  });
+}
+wrapWordsInV1Leftw();
+
+// 控制点击后文字掉落 / 恢复
+let v1Dropped = false;
+
+const v1Leftw = document.querySelector('.v1 .leftw');
+v1Leftw.addEventListener('click', () => {
+  const words = v1Leftw.querySelectorAll('.drop-word');
+  v1Dropped = !v1Dropped;
+
+  words.forEach((word, index) => {
+    if (v1Dropped) {
+      // 可选延迟：像“雨滴”一样掉落
+      word.style.transitionDelay = `${index * 20}ms`;
+      word.classList.add('falling');
+    } else {
+      word.style.transitionDelay = `${index * 20}ms`;
+      word.classList.remove('falling');
+    }
+  });
+});

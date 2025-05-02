@@ -180,6 +180,7 @@ body {
   grid-area: bottom;
   padding: 80px 20px;
   background-color: white;
+  overflow: hidden;
 }
 
 .bottom-content .p1, .bottom-content .p2 {
@@ -196,6 +197,29 @@ body {
 .bottom-content .p2 {
   margin-top: 30px;
 }
+
+/*⚠️intro文字打散*/
+.scatter-word {
+  white-space: nowrap; /* ✅ 保证单词不被拆行 */
+  display: inline-block;
+}
+
+.scatter-letter {
+  display: inline-block;
+  transition: transform 1s ease;
+  will-change: transform;
+}
+
+.scatter-letter.floating {
+  transition: transform 1.2s ease;
+}
+
+.scatter-space {
+  display: inline-block;
+  width: 0.3em;
+}
+
+
 
 .feature-image {
   width: auto;
@@ -219,7 +243,7 @@ body {
   border: none;
 }
 
-.v1, .v2 , .v3, .v4{
+.v1, .v2 , .v3,{
 	height: 100vh;
     width: calc(100% - 20px);
     margin: 0 10px;
@@ -233,6 +257,14 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+.v2{
+	overflow: hidden;
+}
+
+.v1{
+	position: relative;
+}
+
 
 
 /* 案例 */
@@ -495,7 +527,7 @@ a:hover::before, a:hover::after{
   white-space: nowrap; /* 防止文本换行 */
 }
 
-/*⚠️🌃🌃背景*/
+/*⚠️🌃🌃v123背景*/
 
 .background-blur {
   position: absolute;
@@ -575,4 +607,30 @@ a:hover::before, a:hover::after{
   mask-repeat: no-repeat;
 }
 
+.shadow-letter {
+  display: inline-block;
+  transition: text-shadow 0.05s linear;
+}
+
+/*⚠️v1拖尾+掉落*/
+.trail {
+  position: absolute;
+  pointer-events: none;
+
+  filter: brightness(1.2) saturate(1.4);
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 1s ease;
+  opacity: 1;
+}
+
+.drop-word {
+  display: inline-block;
+  transition: transform 3s ease, opacity 1s ease;
+  will-change: transform;
+}
+
+.drop-word.falling {
+  transform: translateY(100vh);
+  opacity: 0;
+}
 
