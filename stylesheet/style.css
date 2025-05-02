@@ -54,8 +54,16 @@ body {
   width: 100%;
   height: 2px;
   background-color: black;
+/*  margin-top: 10px;*/
+}
+
+.hrtop {
+  width: 100%;
+  height: 2px;
+  background-color: black;
   margin-top: 10px;
 }
+
 
 .hr2 {
   width: 40%;
@@ -256,13 +264,10 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-/* .v2{
+.v2{
 	overflow: hidden;
 }
 
-.v1{
-	position: relative;
-} */
 
 
 
@@ -611,7 +616,7 @@ a:hover::before, a:hover::after{
   transition: text-shadow 0.05s linear;
 }
 
-
+/*⚠️1️⃣v1变化*/
 .trail {
   position: absolute;
   pointer-events: none;
