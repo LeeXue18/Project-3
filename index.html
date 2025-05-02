@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/themes/smoothness/jquery-ui.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
+
 	</head>
 
 	<body>
@@ -50,9 +51,11 @@
 		</div>
 
 		<div class="v1" id="v1">
+			<div class="background-blur" style="background-image: url('images/cartoon.jpg');"></div>
+
 			<div class="hr"></div>
 			<div class="main">
-				<div class="words">
+				<div class="words" id="v1-words">
 					<div class="name">
 						<p>Cartoon Sculpture</p>
 					</div>
@@ -67,10 +70,9 @@
 							<!-- <a href="http://ds.dingwei.cn/byz/details?g=26&id=518">View more</a> -->
 							<p>Featured</p>
 							<div class="jump">
-								<a href="#v1">Cartoon Sculpture</a>
-								<a href="#v2">Cartoon Sculpture</a>
-								<a href="#v3">Cartoon Sculpture</a>
-								<a href="#v4">Cartoon Sculpture</a>
+								<a class="a1" href="#v1">Cartoon Sculpture</a>
+								<a class="a2" href="#v2">Chinese Opera</a>
+								<a class="a3" href="#v3">Flattened David</a>
 							</div>
 						</div>
 					</div>
@@ -81,12 +83,90 @@
 				</div>
 				
 				<div class="img">
-					<img src="images/cartoon.jpg">
+					<img id="v1-img"  src="images/cartoon.jpg">
 				</div>
 			</div>
 		</div>
 
-		<div class="v2">
+		<div class="v2" id="v2">
+			<div class="background-blur" style="background-image: url('images/v2.jpg');"></div>
+			<div class="hr"></div>
+			<div class="main">
+				<div class="words">
+					<div class="name">
+						<p>Chinese Opera</p>
+					</div>
+					<div class="hr2"></div>
+					<div class="explain">
+						<div class="leftw">
+							<a href="http://ds.dingwei.cn/byz/details?g=26&id=518">View more</a>
+							<p>Adopting projection and animation technology, the projector uses the heads of ancient and modern Chinese and foreign celebrities, theater faces and through transformation to form a new vision of David's face structure. The different elements are transformed and fit each other.</p>
+
+						</div>
+						<div class="rightw">
+							 
+							<p>Featured</p>
+							<div class="jump">
+								<a class="a1" href="#v1">Cartoon Sculpture</a>
+								<a class="a2" href="#v2">Chinese Opera</a>
+								<a class="a3" href="#v3">Flattened David</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="bottom-contentv2">
+						<p>@WuyaLin 2015</p>
+					</div>
+				</div>
+				
+				<div class="img">
+					<img src="images/v2.jpg">
+				</div>
+			</div>
 		</div>
+
+		<div class="v3" id="v3">
+			<div class="hr"></div>
+			<div class="main">
+				<div class="words">
+					<div class="name">
+						<p>Flattened David</p>
+					</div>
+					<div class="hr2"></div>
+					<div class="explain">
+						<div class="leftw">
+							<a href="http://ds.dingwei.cn/byz/details?g=26&id=518">View more</a>
+							<p class="flatten-text">Times have changed, but the standard of reference remains the same? Chen Ke thus begins to digitally and technologically forcefully edit and remodel the statue of David. Heflattens the whole image of David, bringing about a strong sense of repression, passivity and even vertigo.</p>
+
+						</div>
+						<div class="rightw">
+							
+							<p>Featured</p>
+							<div class="jump">
+								<a class="a1" href="#v1">Cartoon Sculpture</a>
+								<a class="a2" href="#v2">Chinese Opera</a>
+								<a class="a3" href="#v3">Flattened David</a>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="bottom-contentv2">
+						<p>@Chen Ke 2006</p>
+					</div>
+				</div>
+				
+				<div class="img">
+					<img src="images/v3.jpg">
+				</div>
+			</div>
+		</div>
+
+
+		<div id="custom-cursor">
+          <img src="images/v3.png" alt="cursor">
+        </div>
+
+    
 	</body>
 </html>
