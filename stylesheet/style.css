@@ -539,4 +539,40 @@ a:hover::before, a:hover::after{
   transform: scaleY(0.2);      /* Y 方向压扁到 20% */
 }
 
+.squeeze{
+	display: inline-block;    
+	transition: transform 2s ease;
+	transform-origin: left;
+}
+
+.squeeze:hover{
+	transform: scaleX(0.2);
+}
+
+/*⚠️2️⃣v2变化*/
+/*.v2 {
+  position: relative;
+  overflow: hidden;
+}*/
+
+.mask-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+
+  /* 背景黑色 */
+  background-color: black;
+
+  /* 使用 mask 制作圆洞，默认位置在左上角（不可见） */
+  -webkit-mask-image: radial-gradient(circle 300px at 0px 0px, transparent 0%, black 100%);
+  mask-image: radial-gradient(circle 300px at 0px 0px, transparent 0%, black 100%);
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
 

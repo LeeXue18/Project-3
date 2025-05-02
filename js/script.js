@@ -113,3 +113,49 @@ v3Image.addEventListener('mouseleave', () => {
   cursorImg.style.height = `300px`;
 });
 
+
+//v2聚光灯
+const v2 = document.querySelector('.v2');
+const mask = document.querySelector('.mask-overlay');
+
+let isMaskActive = true; // 初始状态：遮罩开启
+
+v2.addEventListener('mousemove', (e) => {
+  if (!isMaskActive) return;
+
+  const rect = v2.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const maskStyle = `radial-gradient(circle 300px at ${x}px ${y}px, transparent 0%, black 100%)`;
+  mask.style.webkitMaskImage = maskStyle;
+  mask.style.maskImage = maskStyle;
+});
+
+v2.addEventListener('mouseleave', () => {
+  if (!isMaskActive) return;
+
+  const maskStyle = `radial-gradient(circle 300px at -999px -999px, transparent 0%, black 100%)`;
+  mask.style.webkitMaskImage = maskStyle;
+  mask.style.maskImage = maskStyle;
+});
+
+v2.addEventListener('click', () => {
+  isMaskActive = !isMaskActive;
+
+  if (!isMaskActive) {
+    // 关闭遮罩 + 让背景变透明
+    mask.style.webkitMaskImage = 'none';
+    mask.style.maskImage = 'none';
+    mask.style.backgroundColor = 'transparent';
+  } else {
+    // 恢复遮罩 + 黑色背景
+    const maskStyle = `radial-gradient(circle 300px at -999px -999px, transparent 0%, black 100%)`;
+    mask.style.webkitMaskImage = maskStyle;
+    mask.style.maskImage = maskStyle;
+    mask.style.backgroundColor = 'black';
+  }
+});
+
+
+
