@@ -310,8 +310,8 @@ body {
 	margin: 0;
 	width: 60%;
 	font-weight: bold;
-	font-size: 165px;
-	line-height:145px ;
+	font-size: 10rem;
+	line-height:8rem;
 	display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -652,4 +652,215 @@ a:hover::before, a:hover::after{
   transform: translate(-50%, -50%) scale(1);
   transition: opacity 1s ease;
   opacity: 1;
+}
+
+/* 打印按钮样式 */
+#print-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  z-index: 9999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+}
+
+#print-btn:hover {
+  background-color: #555;
+}
+
+/* ===== 打印样式 ===== */
+@media print {
+  /* 隐藏打印按钮 */
+  #print-btn {
+    display: none !important;
+  }
+
+  html, body {
+    background-color: white !important;
+    color: black !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  /* 隐藏不需要打印的交互元素 */
+  #custom-cursor, 
+  .mask-overlay,
+  .trail {
+    display: none !important;
+  }
+  
+  /* 标题样式修改 */
+  #title {
+    position: static !important;
+    transform: none !important;
+    text-align: center !important;
+    margin: 30px auto !important;
+    font-size: 80px !important; /* 恢复原始大小 */
+    color: black !important;
+    page-break-after: always !important;
+  }
+  
+  /* 所有区域可见 */
+  .intro, .v1, .v2, .v3 {
+    opacity: 1 !important;
+    transform: none !important;
+    position: static !important;
+    height: auto !important;
+    margin: 20px 0 !important;
+    page-break-after: always !important;
+    background: white !important;
+  }
+  
+  /* 重置背景模糊和效果 */
+  .background-blur {
+    filter: none !important;
+    opacity: 0.1 !important;
+  }
+  
+  /* 保持布局和字体大小 */
+  .bottom-content .p1, 
+  .bottom-content .p2 {
+    color: black !important;
+    transform: none !important;
+    font-size: 48px !important; /* 恢复原始大小 */
+    line-height: 1 !important;
+    width: auto !important;
+  }
+  
+  .leftw p {
+    color: black !important;
+    transform: none !important;
+    font-size: 36px !important; /* 恢复原始大小 */
+    line-height: 1 !important;
+    width: 85% !important;
+    margin-top: 20% !important;
+  }
+  
+  .name p,
+  .squeeze {
+    color: black !important;
+    transform: none !important;
+    font-size: 165px !important; /* 恢复原始大小 */
+    line-height: 145px !important;
+  }
+  
+  /* 布局保持原样 */
+  .main {
+    flex-direction: row !important; /* 保持原有的左右布局 */
+    break-inside: avoid !important; /* 防止布局被分页断开 */
+  }
+  
+  .words {
+    width: 70% !important;
+    margin: 0 !important;
+  }
+  
+  .img {
+    width: 30% !important;
+    margin-left: auto !important;
+    height: auto !important; /* 允许高度自适应 */
+    min-height: 400px !important; /* 设置最小高度 */
+  }
+  
+  .img img {
+    max-height: none !important; /* 取消最大高度限制 */
+    height: auto !important;
+    width: 100% !important; /* 确保图片宽度填满容器 */
+    object-fit: contain !important; /* 确保图片不变形 */
+  }
+  
+  /* 顶部布局容器 */
+  .layout-container {
+    display: grid !important;
+    grid-template-columns: 40% 2px calc(60% - 2px) !important;
+    grid-template-rows: auto 2px auto !important;
+    grid-template-areas: 
+      "top-left v-divider top-right"
+      "h-divider h-divider h-divider"
+      "bottom bottom bottom" !important;
+    width: 100% !important;
+  }
+  
+  .top-left {
+    grid-area: top-left !important;
+    padding: 10px !important;
+    min-height: 300px !important;
+  }
+  
+  .top-right h3 {
+    padding: 30% 25% 0% 1% !important;
+    font-size: 64px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .feature-image {
+    height: auto !important;
+    max-height: 300px !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+  
+  /* 去除各种动画相关样式 */
+  .shadow-letter,
+  .scatter-letter,
+  .drop-word {
+    display: inline-block !important; /* 改为inline-block以保持单词间距 */
+    transform: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* 设置横向A4打印 */
+  @page {
+    margin: 1cm;
+    size: 11in 17in landscape; /* 修改为11x17英寸横向打印 */
+  }
+  
+  /* 优化横向打印布局 */
+  @media (orientation: landscape) {
+    /* 优化横向打印的标题和内容 */
+    .name p, .squeeze {
+      font-size: 120px !important;
+      line-height: 110px !important;
+    }
+    
+    /* 横向布局时的图像处理 */
+    .img {
+      min-height: 300px !important;
+    }
+    
+    /* 确保横向打印时内容不被裁切 */
+    .main {
+      max-height: 820px !important; /* 增大高度以适应11x17尺寸 */
+    }
+    
+    .leftw p {
+      margin-top: 10% !important;
+    }
+    
+    /* intro区域横向优化 */
+    .bottom-content .p1, 
+    .bottom-content .p2 {
+      font-size: 36px !important;
+      line-height: 1.2 !important;
+    }
+    
+    .top-right h3 {
+      font-size: 48px !important;
+      padding: 20% 15% 0% 1% !important;
+    }
+  }
+  
+  /* 确保每个主要部分从新页开始 */
+  .intro, .v1, .v2, .v3 {
+    page-break-before: always !important;
+  }
 }
